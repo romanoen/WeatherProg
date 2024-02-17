@@ -30,22 +30,3 @@ class Runner:
         ph = predict.Prediction(fetchedData, self.periods)
         return ph.predict()
 
-
-
-
-##################################################
-startdate = "2020-01-01"
-enddate = "2024-01-01"
-periods = 90
-latitude = 47.5
-longitude = 9.5
-hourlyParameters = ["temperature_2m"]
-dailyParameters = ["temperature_2m_min", "temperature_2m_max"]
-selector = 2
-
-
-
-ru = Runner(startdate, enddate, periods, latitude, longitude, hourlyParameters, dailyParameters, selector)
-rd = ru.run()
-
-print(rd)

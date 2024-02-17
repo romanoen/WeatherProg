@@ -7,7 +7,8 @@ class Prediction:
             self, data, periodss):
         self.data = data
         self.periods = periodss
-        self.transformed_data = []
+        self.transformedData = []
+        self.origColNames = []
         self.transform()
 
     def transform(self):
@@ -18,23 +19,25 @@ class Prediction:
         for column in feature_columns:
             temp_df = self.data[[date_column, column]].copy()
             temp_df.rename(columns={date_column: 'ds', column: 'y'}, inplace=True) 
-            self.transformed_data.append(temp_df)
+            self.transformedData.append(temp_df)
+            self.origColNames.append(column)
 
     def predict(self):
         
         predictions = []
 
-        for df in self.transformed_data:
-            predictions.append(self.prophesy(df))
+        for idx, df in enumerate(self.transformedData):
+            predictions.append(self.prophesy(df, self.origColNames[idx]))
 
         return predictions
 
-    def prophesy(self,df):
+    def prophesy(self,df,origColnames):
         prophet = Prophet()
         prophet.fit(df)
         prognosis = prophet.make_future_dataframe(periods=self.periods)
         forecast = prophet.predict(prognosis)
-        return forecast[['ds', 'yhat']].tail(self.periods)
+        forecast.rename(columns={'yhat': origColnames}, inplace=True)  
+        return forecast[['ds', origColnames]].tail(self.periods)
 
 
         
