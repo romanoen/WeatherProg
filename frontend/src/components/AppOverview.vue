@@ -37,16 +37,23 @@
             </div>
 
             <div class=okButtonDiv>
-                <v-btn block rounded="xl" size="x-large" color="green" @click="printAll()"><i
+                <v-btn block rounded="xl" size="x-large" color="green" @click="showresults = true"><i
                         class="mdi mdi-check"></i></v-btn>
             </div>
+        </div>
+        <div>
+            <TilesView v-if="showresults&&place" :years="years" :date="formatDate(selectedDate)" :today="formatDate(today)" :lat="place.lat" :long="place.lng"/>
         </div>
     </div>
 </template>
 
 <script>
-// eslint-disable-next-line no-unused-vars
+import TilesView from './TilesView.vue';
 export default {
+    name : "AppOverview",
+    components: {
+        TilesView
+    },
     data() {
         return {
             searchQuery: '',
@@ -55,7 +62,8 @@ export default {
             showDatePicker: false,
             years: 3,
             selectedDate: new Date(), // Initialize selectedDate here
-            today: new Date() 
+            today: new Date(),
+            showresults: false
         }
     },
     mounted() {
