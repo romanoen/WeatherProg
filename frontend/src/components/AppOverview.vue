@@ -13,8 +13,6 @@
             <div class="searchbar">
                 <v-text-field id="autocomplete" v-model="searchQuery" label="Search Location" placeholder="Münster"
                     variant="solo" rounded :clearable=true prepend-inner-icon="mdi-map-marker"></v-text-field>
-                <button @click="formatDate(selectedDate)">printAdress</button>
-                <button @click="printPlace()">GaGa</button>
             </div>
 
             <div class="datefield">
@@ -37,12 +35,12 @@
             </div>
 
             <div class=okButtonDiv>
-                <v-btn block rounded="xl" size="x-large" color="green" @click="showresults = true"><i
+                <v-btn block rounded="xl" size="x-large" color="green" @click="requestFetchData()"><i
                         class="mdi mdi-check"></i></v-btn>
             </div>
         </div>
         <div>
-            <TilesView v-if="showresults&&place" :years="years" :date="formatDate(selectedDate)" :today="formatDate(today)" :lat="place.lat" :long="place.lng"/>
+            <TilesView ref="tilesView" v-if="showresults" :years="years" :date="formatDate(selectedDate)" :today="formatDate(today)" :lat="place.lat" :long="place.lng"/>
         </div>
     </div>
 </template>
@@ -121,18 +119,18 @@ export default {
             console.log(this.today)
             console.log(this.selectedDate)
             console.log(this.years)
-        }
+        },
+
+        requestFetchData() {
+    this.showresults = true;
+    this.$nextTick(() => {
+      this.$refs.tilesView.apiData = [];
+      this.$refs.tilesView.fetchdata(); // Ensure TilesView is referenced with `ref="tilesView"`
+    });
+  },
     }
 
 }
-</script>
-
-<script setup>
-//import { ref } from 'vue'
-//const selectedDate = ref(new Date()) 
-//const today = ref(new Date())
-
-
 </script>
 
 <style>
