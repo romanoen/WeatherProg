@@ -67,7 +67,7 @@ export default {
     return diffDays; // Gibt die Anzahl der Tage zurück
   },
     apiUrl() {
-      const baseUrl = "http://127.0.0.1:5000/get-data";
+      const baseUrl = "http://127.0.0.1:5001/get-data";
       const endDate = this.formattedToday; // Verwendet `formattedToday`, die das Datum korrekt formatiert
       const startDate = this.formattedStartDate; // Verwendet `formattedStartDate` für das korrekte Startdatum
       const periods = this.periods;
