@@ -1,6 +1,6 @@
 # WeatherProg
 
-WeatherProg is a machine learning-based approach to forecast weather. This project combines a Vue.js frontend with a Python backend, leveraging various machine learning algorithms to predict weather patterns accurately.
+WeatherProg is a machine learning-based approach to forecast weather. This project combines a Vue.js frontend with a Python backend, leveraging the prophet algorithm to predict weather patterns accurately.
 
 ## Features
 
